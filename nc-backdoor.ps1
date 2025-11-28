@@ -1,3 +1,8 @@
+# Create temp directory if missing
+if (!(Test-Path -Path "C:\temp")) {
+    New-Item -Path "C:\temp" -ItemType Directory | Out-Null
+}
+
 # Download Nmap installer
 $installerPath = "C:\temp\nmap-setup.exe"
 Invoke-WebRequest "https://nmap.org/dist/nmap-latest-setup.exe" -OutFile $installerPath
