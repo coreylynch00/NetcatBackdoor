@@ -21,9 +21,9 @@ The script performs the following operations:
 2. Installs Nmap silently.
 3. Navigates to the Nmap program directory.
 4. Identifies an available TCP port using a simple listener test.
-5. Starts `ncat` in listener mode with `cmd.exe` attached.
+5. Starts `ncat` in listener mode with `cmd.exe` attached to bind a reverse shell.
 
 ## Usage
 
 This script is intended for **research and authorized red‑team operations only**.  
-Run it in a controlled environment to demonstrate automated payload and post-exploitation tooling setup.
+Run it in a controlled environment to demonstrate payload delivery and post-exploitation tooling setup.
