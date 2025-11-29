@@ -1,13 +1,13 @@
-# Netcat Downloader + Persistent Ncat Bind Shell (POC)
+# Ncat Downloader + Persistent Ncat Bind Shell (POC)
 
-This proof‑of‑concept demonstrates automated deployment of Netcat on a Windows host and the creation of a persistent `ncat` bind‑shell listener using a Windows service.  
+This proof‑of‑concept demonstrates automated deployment of Nmap on a Windows host and the creation of a persistent `ncat` bind‑shell listener using a Windows service.  
 It is intended **only for authorized red‑team, lab, and research environments** where post‑exploitation tooling and persistence techniques must be demonstrated safely.
 
 ---
 
 ## Features
 
-- **Automated Netcat Download & Silent Installation**  
+- **Automated Nmap Download & Silent Installation**  
   Retrieves the Netcat installer and installs it without user interaction.
 
 - **Persistent Bind‑Shell Service**  
